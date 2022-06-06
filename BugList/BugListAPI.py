@@ -10,3 +10,7 @@ def home():
     return (
         "<h1>Automated bug reporting</h1><p>Internal System</p>"  # what the api returns
     )
+
+
+if __name__ == '__main__':
+    app.run()
