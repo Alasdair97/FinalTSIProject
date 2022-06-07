@@ -1,6 +1,5 @@
 # Inistal bug list
 from flask import request, jsonify, Flask
-import os
 from azure.servicebus import ServiceBusClient, ServiceBusMessage
 
 app = Flask(__name__)
@@ -9,8 +8,8 @@ app.config["DEBUG"] = True
 # https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/servicebus/azure-servicebus/samples/sync_samples/send_queue.py
 # Basic messeage framework
 
-CONNECTION_STR = os.environ["Bug-Handler-001"]
-QUEUE_NAME = os.environ["add-bug-data"]
+CONNECTION_STR = ["Bug-Handler-001"]
+QUEUE_NAME = ["add-bug-data"]
 
 def send_single_message(sender):
     message = ServiceBusMessage("Single Message")
