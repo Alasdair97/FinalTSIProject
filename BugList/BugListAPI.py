@@ -4,7 +4,7 @@ from flask import request, jsonify, Flask
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
-# https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/servicebus/azure-servicebus/samples/sync_samples/send_queue.py
+
 # Basic messeage framework
 
 
