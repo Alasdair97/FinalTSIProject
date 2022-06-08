@@ -4,9 +4,9 @@ import getopt
 
 # send messages to slack using slack api
 
-def send_slack_message(message):
+def send_slack_message(message): # channel
     payload = '{"text:"%s"}' % message
-    response = requests.post('{"text:"%s"}' % channel, 
+    response = requests.post("https://hooks.slack.com/services/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", 
     data=payload)
 
     print(response.text)
@@ -14,8 +14,9 @@ def send_slack_message(message):
 def main(argv):
 
     message = ' '
+    # channel = 'https://hooks.slack.com/services/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'
 
-    try: opts, args = getopt.getopt(argv, "hmc:", ["message="])
+    try: opts, args = getopt.getopt(argv, "hm:", ["message="])
 
     except getopt.GetoptError:
         print('SlackMessage.py -m <message>')
@@ -28,9 +29,9 @@ def main(argv):
             sys.exit()
         elif opt in ("-m", "--message"):
             message = arg
-        elif opt in ("-c", "--channel"):
-            channel = arg
-    send_slack_message(message)
+        # elif opt in ("-c", "--channel"):
+        #    channel = arg
+    send_slack_message(message) # channel
 
 
 if __name__ == "__main__":
