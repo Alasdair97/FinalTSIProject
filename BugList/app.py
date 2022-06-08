@@ -1,5 +1,10 @@
 # Inistal bug list
 from flask import request, jsonify, Flask
+from azure.storage.queue import (
+        QueueClient,
+        BinaryBase64EncodePolicy,
+        BinaryBase64DecodePolicy
+)
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
