@@ -24,6 +24,12 @@ bugs = [
 
 # Basic messeage framework
 
+@app.route('/', methods=['GET'])
+def home():
+    return (
+"<h1>Bug Triarge API</h1>"
+    )
+
 @app.route('/api', methods=['GET', 'POST'])
 def api():
     # send bug to correct queue/bus/howerever I get this to work
