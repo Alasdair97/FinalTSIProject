@@ -1,12 +1,13 @@
 import requests
 import sys
 import getopt
+from Webhooks import GeneralURL
 
 # send messages to slack using slack api
 
 def send_slack_message(message): # channel
     payload = '{"text:"%s"}' % message
-    response = requests.post("[url here]", 
+    response = requests.post(GeneralURL, 
     data=payload)
 
     print(response.text)
