@@ -7,8 +7,7 @@ from Webhooks import GeneralURL
 
 def send_slack_message(message): # channel
     payload = '{"text:"%s"}' % message
-    response = requests.post(GeneralURL, 
-    data=payload)
+    response = requests.post(GeneralURL, data=payload)
 
     print(response.text)
 
