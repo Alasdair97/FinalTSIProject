@@ -38,11 +38,11 @@ def api():
     elif request.method == 'POST':
         if not 'priority' in request.json or request.json['priority'] not in {"High", "Medium", "Low"}:
             # send to log queue
-            return 'Bad priority detected send to the logs', 400 #request.json #send to the logs
+            return 'Bad priority detected send to the logs', 400 #request.json # send to the logs
         if request.json['priority'] in {"High","Critical"}:
-            return 'High priority send to Slack queue', 200 #request.json 
+            return 'High priority send to Slack queue', 200 #request.json # send to Slack queue
         if request.json['priority'] in {"Medium","Low"}:
-            return 'Not High priority send to Jira queue', 200 #request.json 
+            return 'Not High priority send to Jira queue', 200 #request.json # send to Jira queue
     
 
 
