@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: python-app
-          path: BugList/BugListAPI.py
+          path: |
             . 
             !venv/
 
@@ -58,6 +58,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
+          path: BugList/
           app-name: 'BugListAPI'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2CF4B71D11D245E5BD1645E6481BB09F }}
