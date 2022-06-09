@@ -1,5 +1,5 @@
 # Inistal bug list
-from email import message
+
 from flask import request, jsonify, Flask
 from azure.storage.queue import (
         QueueClient,
@@ -57,16 +57,19 @@ def api():
             if bug['priority'] not in {"High", "Medium", "Low"}:
                 return "<p>Bad priority detected send to logs </p>"
         return jsonify({'bugs': bugs})
+
     elif request.method == 'POST':
         if not 'priority' in request.json or request.json['priority'] not in {"High", "Medium", "Low"}:
             addtoqueue('invalidinputs', request.json)
             return 'Bad priority detected send to the logs', 400 #request.json # send to the logs
+
         if request.json['priority'] in {"High","Critical"}:
-            addtoqueue('highpriority', request.json)
+            addtoqueue('bugtoforward', request.json)
             return 'High priority send to Slack queue', 200 #request.json # send to Slack queue
+
         if request.json['priority'] in {"Medium","Low"}:
-            addtoqueue('normalpriority', request.json)
-            return 'Not High priority send to Jira queue', 200 #request.json # send to Jira queue
+            addtoqueue('bugtoforward', request.json)
+            return 'Not High priority send to Trello queue', 200 #request.json # send to Jira queue
     
 
 
