@@ -7,7 +7,7 @@ from azure.storage.queue import (
         BinaryBase64DecodePolicy
 )
 
-from storagesecrets import *
+from storagesecrets import * # this will be replaced with keyvault stuff before deployment
 import os, uuid
 
 app = Flask(__name__)
