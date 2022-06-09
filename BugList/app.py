@@ -1,10 +1,14 @@
 # Inistal bug list
+from email import message
 from flask import request, jsonify, Flask
 from azure.storage.queue import (
         QueueClient,
         BinaryBase64EncodePolicy,
         BinaryBase64DecodePolicy
 )
+
+from storagesecrets import *
+import os, uuid
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -27,6 +31,13 @@ bugs = [
     },
 ]
 
+# Creating queue client conection and send function
+def addtoqueue(q_name, data):
+    connect_str = AZURE_STORAGE_CONNECTION_STRING
+    message = str(data)
+    queue_client = QueueClient.from_connection_string(connect_str, q_name)
+    queue_client.send_message(message)
+
 # Basic messeage framework
 
 @app.route('/', methods=['GET'])
@@ -48,11 +59,13 @@ def api():
         return jsonify({'bugs': bugs})
     elif request.method == 'POST':
         if not 'priority' in request.json or request.json['priority'] not in {"High", "Medium", "Low"}:
-            # send to log queue
+            addtoqueue('invalidinputs', request.json)
             return 'Bad priority detected send to the logs', 400 #request.json # send to the logs
         if request.json['priority'] in {"High","Critical"}:
+            addtoqueue('highpriority', request.json)
             return 'High priority send to Slack queue', 200 #request.json # send to Slack queue
         if request.json['priority'] in {"Medium","Low"}:
+            addtoqueue('normalpriority', request.json)
             return 'Not High priority send to Jira queue', 200 #request.json # send to Jira queue
     
 
