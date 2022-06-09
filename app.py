@@ -2,9 +2,7 @@
 
 from flask import request, jsonify, Flask
 from azure.storage.queue import (
-        QueueClient,
-        BinaryBase64EncodePolicy,
-        BinaryBase64DecodePolicy
+        QueueClient
 )
 
 # from storagesecrets import * # local deployment
