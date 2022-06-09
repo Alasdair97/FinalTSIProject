@@ -14,14 +14,12 @@ app.config["DEBUG"] = True
 # Test Bug
 bugs = [
     {
-        'id': 1,
         'name': 'The First Bug',
         'description': 'In the begining there was a bug',
         'department': 'general',
         'priority': 'High'
     },
     {
-        'id': 2,
         'name': 'The Second Bug',
         'description': 'In the begining there was lots of bugs',
         'department': 'general',
@@ -52,14 +50,14 @@ def api():
 
     if request.method == 'GET':
         for bug in bugs:
-            if bug['priority'] not in {"High", "Medium", "Low"}:
+            if bug['priority'] not in {"High", "Medium", "Low", "Critical"}:
                 return "<p>Bad priority detected send to logs </p>"
         return jsonify({'bugs': bugs})
 
     elif request.method == 'POST':
-        if not 'priority' in request.json or request.json['priority'] not in {"High", "Medium", "Low"}:
+        if not 'priority' in request.json or request.json['priority'] not in {"High", "Medium", "Low", "Critical"}:
             addtoqueue('invalidinputs', request.json)
-            return 'Bad priority detected send to the logs', 400 #request.json # send to the logs
+            return 'Bad priority detected send to the logs and mail', 400 #request.json # send to the logs
 
         if request.json['priority'] in {"High","Critical"}:
             addtoqueue('bugtoforward', request.json)
