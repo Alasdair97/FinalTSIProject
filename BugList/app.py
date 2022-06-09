@@ -33,7 +33,7 @@ bugs = [
 
 # Creating queue client conection and send function
 def addtoqueue(q_name, data):
-    connect_str = AZURE_STORAGE_CONNECTION_STRING
+    connect_str = os.getenv(AZURE_STORAGE_CONNECTION_STRING)
     message = str(data)
     queue_client = QueueClient.from_connection_string(connect_str, q_name)
     queue_client.send_message(message)
